@@ -44,9 +44,10 @@ main
 		color: #999;
 	}
 
-	.notice
+	.params:empty:before
 	{
 		font-style: italic;
+		content: "This endpoint accepts no URI parameters";
 	}
 
 	.warn:before
