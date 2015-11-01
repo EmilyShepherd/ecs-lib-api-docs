@@ -24,13 +24,12 @@ body > header h1
 	margin: 0;
 	top: 30px;
 	left: 10px;
+	width: 50%;
 }
 
-#\/ h2:after
+h2, h3
 {
-	content: "(Root)";
-	font-size: small;
-	color: gray;
+	margin: 0;
 }
 
 main
@@ -38,8 +37,46 @@ main
 	padding: 10px;
 }
 
+span.uri:before
+{
+	content: "http://waisvm-rfp1.ecs.soton.ac.uk";
+	color: #999;
+}
+
+.notice
+{
+	font-style: italic;
+}
+
+/* METHODS */
+	main > section
+	{
+		border: 1px solid gray;
+		background: #F1F1F1;
+		margin-bottom: 10px;
+		border-radius: 10px;
+	}
+
+	main > section h3
+	{
+		border-bottom: 1px solid gray;
+		padding: 10px;
+		background: #DDD;
+		border-radius: 10px 10px 0px 0px;
+	}
+
+	section.desc
+	{
+		margin: 10px;
+	}
+
 
 /* EXAMPLES */
+	section.eg
+	{
+		margin: 20px 10px 10px 10px;
+	}
+
 	section.eg label
 	{
 		background: #333;
