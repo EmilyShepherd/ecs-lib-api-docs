@@ -27,26 +27,34 @@ body > header h1
 	width: 50%;
 }
 
-h2, h3
-{
-	margin: 0;
-}
-
 main
 {
 	padding: 10px;
 }
 
-span.uri:before
-{
-	content: "http://waisvm-rfp1.ecs.soton.ac.uk";
-	color: #999;
-}
+/** TEXT **/
+	h2, h3
+	{
+		margin: 0;
+	}
 
-.notice
-{
-	font-style: italic;
-}
+	span.uri:before
+	{
+		content: "http://waisvm-rfp1.ecs.soton.ac.uk";
+		color: #999;
+	}
+
+	.notice
+	{
+		font-style: italic;
+	}
+
+	.warn:before
+	{
+		content: "\26A0    Warning: ";
+		color: red;
+		font-weight: bold;
+	}
 
 /* METHODS */
 	main > section
