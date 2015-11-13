@@ -101,7 +101,7 @@ main
 		text-align: center;
 	}
 
-	section.eg div:before
+	section.eg div:not(.onlyOption):before
 	{
 		position: absolute;
 		margin-top: -2px;
@@ -127,9 +127,9 @@ main
 		display: none;
 	}
 
-	section.eg input[type="radio"]:checked + div
+	section.eg input[type="radio"]:checked + div, div.onlyOption
 	{
-		display: block;
+		display: block !important;
 	}
 
 	section.eg div
@@ -138,6 +138,11 @@ main
 		border-radius: 0 10px 10px 10px;
 		display: none;
 		background: #333;
+	}
+
+	section.eg div.onlyOption
+	{
+		border-radius: 10px;
 	}
 
 	section.eg div code
@@ -159,9 +164,9 @@ main
 		display: block;
 	}
 
-	section.eg div code.req
+	section.eg div code.resp
 	{
-		border-bottom: 1px dashed gray;
+		border-top: 1px dashed gray;
 	}
 
 	section.eg div code.resp:before
