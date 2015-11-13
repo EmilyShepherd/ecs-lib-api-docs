@@ -17,7 +17,54 @@
       <h2>Publisher Detail</h2>
       <span class="uri">/publishers/&lt;id&gt;</span>
 
-      <p class="params"></p>
+      <section class="params">
+        <h3>URI Parameters</h3>
+        <div class="param">
+          <span class="name">id</span>
+          <span class="type">integer</span>
+          <span class="desc">
+            The Identifier for the publisher (this is provided implicitly via the publisher's
+            url when accessing the <a href="publishers.html">publisher collection</a>).
+          </span>
+        </div>
+      </section>
+
+      <section class="resource">
+        <h3>Resource Properties</h3>
+        <div class="prop">
+          <span class="name">name</span>
+          <span class="type">string</span>
+          <span class="desc">
+            The registered company name of the publishing organisation
+          </span>
+        </div>
+
+        <div class="prop">
+          <span class="name">location</span>
+          <span class="type">string</span>
+          <span class="desc">
+            The location of the publisher's headquaters.
+          </span>
+        </div>
+
+        <div class="prop">
+          <span class="name">owner</span>
+          <span class="type">ECSID</span>
+          <span class="level">Read Only</span>
+          <span class="desc">
+            The user who created and owns the resource. Only this user may delete or modify the publisher.
+          </span>
+        </div>
+
+        <div class="prop">
+          <span class="name">url</span>
+          <span class="type">URI</span>
+          <span class="level">Read Only</span>
+          <span class="desc">
+            The location of this publisher resource on the server, including its ID.
+          </span>
+        </div>
+      </section>
 
       <section id="OPTIONS">
         <h3>OPTIONS</h3>
