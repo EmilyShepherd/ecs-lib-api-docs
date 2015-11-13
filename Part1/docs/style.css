@@ -44,10 +44,53 @@ main
 		color: #999;
 	}
 
+/** DETAILS **/
 	.params:empty:before
 	{
 		font-style: italic;
 		content: "This endpoint accepts no URI parameters";
+	}
+
+	.param .name, .prop .name
+	{
+		font-weight: bold;
+	}
+
+	.param .type:before, .prop .type:before
+	{
+		content: "<";
+	}
+
+	.param .type:after, .prop .type:after
+	{
+		content: ">";
+	}
+
+	.param .type, .prop .type
+	{
+		font-style: italic;
+		color: blue;
+	}
+
+	.param .desc, .prop .desc
+	{
+		display: block;
+		margin-left: 20px;
+	}
+
+	.prop .level:before
+	{
+		content: "(";
+	}
+
+	.prop .level:after
+	{
+		content: ")";
+	}
+
+	.prop .level
+	{
+		color: red;
 	}
 
 	.warn:before
@@ -57,12 +100,17 @@ main
 		font-weight: bold;
 	}
 
+	.param, .prop
+	{
+		margin: 10px;''
+	}
+
 /* METHODS */
-	main > section
+	main > section:not(.desc):not(:empty)
 	{
 		border: 1px solid gray;
 		background: #F1F1F1;
-		margin-bottom: 10px;
+		margin: 10px 0;
 		border-radius: 10px;
 	}
 
@@ -74,7 +122,7 @@ main
 		border-radius: 10px 10px 0px 0px;
 	}
 
-	section.desc
+	main > section > section.desc
 	{
 		margin: 10px;
 	}
