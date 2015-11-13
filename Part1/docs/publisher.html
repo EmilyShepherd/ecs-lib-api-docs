@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ECS Library API</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header>
+      <img src="../../common/ecs_logo.gif" width="235" height="97" alt="University of Southampton, School of Electronics and Computer Science" />
+      <h1>ECS Library API</h1>
+    </header>
+
+    <main>
+      <h2>Publisher Detail</h2>
+      <span class="uri">/publishers/&lt;id&gt;</span>
+
+      <p class="params"></p>
+
+      <section id="OPTIONS">
+        <h3>OPTIONS</h3>
+
+        <section class="desc">
+          <p>Returns a human readable name and description of endpoint and the availiable site-wide response and request content
+          types: JSON, XML and CSV.</p>
+
+          <p class="warn">The description for this endpoint is blank.</p>
+        </section>
+
+        <section class="eg">
+          <label for="OPTIONS-xml">XML</label>
+          <label for="OPTIONS-json">JSON</label>
+          <label for="OPTIONS-csv">CSV</label>
+
+          <input type="radio" name="OPTIONS" id="OPTIONS-xml" checked />
+          <div>
+            <code class="req http"><!--
+-->OPTIONS /publishers/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/xml<!--
+           --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+Content-Type: application/xml; charset=utf-8<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;name&gt;Publisher Detail&lt;/name&gt;
+  &lt;description&gt;&lt;/description&gt;
+  &lt;renders&gt;
+    &lt;list-item&gt;application/xml&lt;/list-item&gt;
+    &lt;list-item&gt;application/json&lt;/list-item&gt;
+    &lt;list-item&gt;text/csv&lt;/list-item&gt;
+  &lt;/renders&gt;
+  &lt;parses&gt;
+    &lt;list-item&gt;application/xml&lt;/list-item&gt;
+    &lt;list-item&gt;application/json&lt;/list-item&gt;
+    &lt;list-item&gt;text/csv&lt;/list-item&gt;
+  &lt;/parses&gt;
+&lt;/root&gt;<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="OPTIONS" id="OPTIONS-json" />
+          <div>
+            <code class="req http"><!--
+-->OPTIONS /publishers/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/json<!--
+           --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+Content-Type: application/json<!--
+           --></code>
+            <code class="json"><!--
+-->{
+    "name"        : "Publisher Detail",
+    "description" : "",
+    "renders"     : [
+        "application/xml",
+        "application/json",
+        "text/csv"
+    ],
+    "parses"      : [
+        "application/xml",
+        "application/json",
+        "text/csv"
+      ]
+}<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="OPTIONS" id="OPTIONS-csv" />
+          <div>
+            <code class="req http"><!--
+-->OPTIONS /publishers/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: text/csv
+<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+Content-Type: text/csv; charset=utf-8<!--
+         --></code>
+            <code class="csv"><!--
+-->description,name,parses.0,parses.1,parses.2,renders.0,renders.1,renders.2
+,Publisher Detail,application/xml,application/json,text/csv,application/xml,application/json,text/csv<!--
+         --></code>
+          </div>
+        </section>
+      </section>
+
+      <section id="GET">
+        <h3>GET</h3>
+
+        <section class="desc">
+          Returns the name, url, location and owner of the publisher.
+        </section>
+
+        <section class="eg">
+          <label for="GET-xml">XML</label>
+          <label for="GET-json">JSON</label>
+          <label for="GET-csv">CSV</label>
+
+          <input type="radio" name="GET" id="GET-xml" checked />
+          <div>
+            <code class="req http"><!--
+-->GET /publishers/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/xml<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+Content-Type: application/xml; charset=utf-8<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;url&gt;http://waisvm-rfp1.ecs.soton.ac.uk/publishers/1&lt;/url&gt;
+  &lt;name&gt;O'Reilly Media&lt;/name&gt;
+  &lt;location&gt;Sebastopol, CA&lt;/location&gt;
+  &lt;owner&gt;rfp1n11&lt;/owner&gt;
+&lt;/root&gt;<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="GET" id="GET-json" />
+          <div>
+            <code class="req http"><!--
+-->GET /publishers/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/json<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+Content-Type: application/json<!--
+         --></code>
+            <code class="json"><!--
+-->{
+    "url"      : "http://waisvm-rfp1.ecs.soton.ac.uk/publishers/1",
+    "name"     : "O'Reilly Media",
+    "location" : "Sebastopol, CA",
+    "owner"    : "rfp1n11"
+}<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="GET" id="GET-csv" />
+          <div>
+            <code class="req http"><!--
+-->GET /publishers/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: text/csv<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+Content-Type: text/csv; charset=utf-8<!--
+         --></code>
+            <code class="csv"><!--
+-->location,name,owner,url
+"Sebastopol, CA",O'Reilly Media,rfp1n11,http://waisvm-rfp1.ecs.soton.ac.uk/publishers/1<!--
+         --></code>
+          </div>
+        </section>
+      </section>
+
+      <section id="PUT">
+        <h3>PUT</h3>
+
+        <section class="desc">
+          Replaces the publisher with the provided one.
+        </section>
+
+        <section class="eg">
+          <label for="PUT-xml">XML</label>
+          <label for="PUT-json">JSON</label>
+          <label for="PUT-csv">CSV</label>
+
+          <input type="radio" name="PUT" id="PUT-xml" checked />
+          <div>
+            <code class="http"><!--
+-->PUT /publishers/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/xml
+Content-Type: application/xml
+Authorization: Token example<!--
+         --></code>
+            <code class="req xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;name&gt;Penguin Books Ltd&lt;/name&gt;
+&lt;/root&gt;<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+Content-Type: application/xml; charset=utf-8<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;url&gt;http://waisvm-rfp1.ecs.soton.ac.uk/publishers/1&lt;/url&gt;
+  &lt;name&gt;Penguin Books Ltd&lt;/name&gt;
+  &lt;location&gt;&lt;/location&gt;
+  &lt;owner&gt;rfp1n11&lt;/owner&gt;
+&lt;/root&gt;<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="PUT" id="PUT-json" />
+          <div>
+            <code class="req http"><!--
+-->PUT /publishers/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/json
+Content-Type: application/json
+Authorization: Token example<!--
+         --></code>
+             <code class="json"><!--
+-->{
+    "name"     : "Penguin Books Ltd",
+}<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+Content-Type: application/json<!--
+         --></code>
+            <code class="json"><!--
+-->{
+    "url"      : "http://waisvm-rfp1.ecs.soton.ac.uk/publishers/1",
+    "name"     : "Penguin Books Ltd",
+    "location" : "",
+    "owner"    : "rfp1n11"
+}<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="PUT" id="PUT-csv" />
+          <div>
+            <code class="req http"><!--
+-->PUT /publishers/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: text/csv
+Content-Type: text/csv
+Authorization: Token example<!--
+         --></code>
+             <code class="csv"><!--
+-->name
+Penguin Books Ltd<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+Content-Type: text/csv; charset=utf-8<!--
+         --></code>
+            <code class="csv"><!--
+-->location,name,owner,url
+,Penguin Books Ltd,rfp1n11,http://waisvm-rfp1.ecs.soton.ac.uk/publishers/1<!--
+         --></code>
+          </div>
+        </section>
+      </section>
+ 
+      <section id="PATCH">
+        <h3>PATCH</h3>
+
+        <section class="desc">
+          Replaces the publisher properties with the ones provided, other properties will
+	  left unchanged.
+        </section>
+
+        <section class="eg">
+          <label for="PATCH-xml">XML</label>
+          <label for="PATCH-json">JSON</label>
+          <label for="PATCH-csv">CSV</label>
+
+          <input type="radio" name="PATCH" id="PATCH-xml" checked />
+          <div>
+            <code class="req http"><!--
+-->PATCH /publishers/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/xml
+Content-Type: application/xml
+Authorization: Token example<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;name&gt;Penguin Books Ltd&lt;/name&gt;
+&lt;/root&gt;<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+Content-Type: application/xml; charset=utf-8<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;url&gt;http://waisvm-rfp1.ecs.soton.ac.uk/publishers/1&lt;/url&gt;
+  &lt;name&gt;Penguin Books Ltd&lt;/name&gt;
+  &lt;location&gt;Sebastopol, CA&lt;/location&gt;
+  &lt;owner&gt;rfp1n11&lt;/owner&gt;
+&lt;/root&gt;<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="PATCH" id="PATCH-json" />
+          <div>
+            <code class="req http"><!--
+-->PATCH /publishers/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/json
+Content-Type: application/json
+Authorization: Token example<!--
+         --></code>
+             <code class="json"><!--
+-->{
+    "name"     : "Penguin Books Ltd",
+}<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+Content-Type: application/json<!--
+         --></code>
+            <code class="json"><!--
+-->{
+    "url"      : "http://waisvm-rfp1.ecs.soton.ac.uk/publishers/1",
+    "name"     : "Penguin Books Ltd",
+    "location" : "Sebastopol, CA",
+    "owner"    : "rfp1n11"
+}<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="PATCH" id="PATCH-csv" />
+          <div>
+            <code class="req http"><!--
+-->PATCH /publishers/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: text/csv
+Content-Type: text/csv
+Authorization: Token example<!--
+         --></code>
+             <code class="csv"><!--
+-->name
+Penguin Books Ltd<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+Content-Type: text/csv; charset=utf-8<!--
+         --></code>
+            <code class="csv"><!--
+-->location,name,owner,url
+"Sebastopol, CA",Penguin Books Ltd,rfp1n11,http://waisvm-rfp1.ecs.soton.ac.uk/publishers/1<!--
+         --></code>
+          </div>
+        </section>
+      </section>
+      
+      <section id="DELETE">
+        <h3>DELETE</h3>
+
+        <section class="desc">
+	  Deletes the given publisher, if you are its owner.
+        </section>
+
+        <section class="eg">
+          <div class="onlyOption">
+            <code class="req http"><!--
+-->DELETE /publishers/1 HTTP/1.1
+Authorization: Token example
+Host: waisvm-rfp1.ecs.soton.ac.uk<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 204 NO CONTENT
+Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+Content-Type: text/csv; charset=utf-8<!--
+         --></code>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="highlight.pack.js"></script>
+    <script>
+      var els = document.getElementsByTagName('code');
+      for (var i = 0; i < els.length; i++)
+      {
+          if (els[i].className === "csv")
+          {
+              els[i].innerHTML =
+                  els[i].innerHTML.replace(/(?:\r\n|\r|\n)/g, "<span class=\"crlf\"><span>&#x21A9;</span></span>\r\n");
+          }
+          else
+          {
+              hljs.highlightBlock(els[i]);
+          }
+      }
+    </script>
+  </body>
+</html>
