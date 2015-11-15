@@ -1,0 +1,25 @@
+-bash-4.1$ curl http://waisvm-rfp1.ecs.soton.ac.uk/books --data '{"title":"The Internet: Now in Handy Book Form!","pages":144,"isbn13":"9781906032005","date_published":"2007-09-01","authors":["http://waisvm-rfp1.ecs.soton.ac.uk/authors/13"],"publisher":"http://waisvm-rfp1.ecs.soton.ac.uk/publishers/9"}' -v -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Token f0ff643f93ee4e25d85091683b816de1dd9eeb60"
+* About to connect() to waisvm-rfp1.ecs.soton.ac.uk port 80 (#0)
+*   Trying 152.78.65.3... connected
+* Connected to waisvm-rfp1.ecs.soton.ac.uk (152.78.65.3) port 80 (#0)
+> POST /books HTTP/1.1
+> User-Agent: curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.18 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2
+> Host: waisvm-rfp1.ecs.soton.ac.uk
+> Accept: application/json
+> Content-Type: application/json
+> Authorization: Token f0ff643f93ee4e25d85091683b816de1dd9eeb60
+> Content-Length: 238
+>
+< HTTP/1.1 201 CREATED
+< Date: Sun, 15 Nov 2015 21:23:58 GMT
+< Server: Apache/2.2.22 (Ubuntu)
+< Vary: Accept
+< X-Frame-Options: SAMEORIGIN
+< Allow: GET, POST, HEAD, OPTIONS
+< Location: http://waisvm-rfp1.ecs.soton.ac.uk/books/350
+< Transfer-Encoding: chunked
+< Content-Type: application/json
+<
+* Connection #0 to host waisvm-rfp1.ecs.soton.ac.uk left intact
+* Closing connection #0
+{"url":"http://waisvm-rfp1.ecs.soton.ac.uk/books/350","title":"The Internet: Now in Handy Book Form!","pages":144,"isbn13":"9781906032005","date_published":"2007-09-01","authors":["http://waisvm-rfp1.ecs.soton.ac.uk/authors/13"],"publisher":"http://waisvm-rfp1.ecs.soton.ac.uk/publishers/9","owner":"ams2g11"}
