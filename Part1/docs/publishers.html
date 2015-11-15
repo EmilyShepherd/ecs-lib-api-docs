@@ -42,13 +42,18 @@
 
           <input type="radio" name="OPTIONS" id="OPTIONS-xml" checked />
           <div>
-            <code class="req http">OPTIONS /publishers HTTP/1.1
+            <code class="req http"><!--
+-->OPTIONS /publishers HTTP/1.1
 Host: waisvm-rfp1.ecs.soton.ac.uk
-Accept: application/xml</code>
-            <code class="resp http">HTTP/1.1 200 OK
+Accept: application/xml<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
 Allow: GET, POST, HEAD, OPTIONS
-Content-Type: application/xml; charset=utf-8</code>
-            <code class="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+Content-Type: application/xml; charset=utf-8<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;root&gt;
   &lt;name&gt;Publisher List&lt;/name&gt;
   &lt;description&gt;&lt;/description&gt;
@@ -62,18 +67,24 @@ Content-Type: application/xml; charset=utf-8</code>
     &lt;list-item&gt;application/json&lt;/list-item&gt;
     &lt;list-item&gt;text/csv&lt;/list-item&gt;
   &lt;/parses&gt;
-&lt;/root&gt;</code>
+&lt;/root&gt;<!--
+         --></code>
           </div>
 
           <input type="radio" name="OPTIONS" id="OPTIONS-json" />
           <div>
-            <code class="req http">OPTIONS /publishers HTTP/1.1
+            <code class="req http"><!--
+-->OPTIONS /publishers HTTP/1.1
 Host: waisvm-rfp1.ecs.soton.ac.uk
-Accept: application/json</code>
-            <code class="resp http">HTTP/1.1 200 OK
+Accept: application/json<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
 Allow: GET, POST, HEAD, OPTIONS
-Content-Type: application/json</code>
-            <code class="json">{
+Content-Type: application/json<!--
+         --></code>
+            <code class="json"><!--
+-->{
     "name"        : "Publisher List",
     "description" : "",
     "renders"     : [
@@ -86,19 +97,26 @@ Content-Type: application/json</code>
         "application/json",
         "text/csv"
       ]
-}</code>
+}<!--
+         --></code>
           </div>
 
           <input type="radio" name="OPTIONS" id="OPTIONS-csv" />
           <div>
-            <code class="req http">OPTIONS /publishers HTTP/1.1
+            <code class="req http"><!--
+-->OPTIONS /publishers HTTP/1.1
 Host: waisvm-rfp1.ecs.soton.ac.uk
-Accept: text/csv</code>
-            <code class="resp http">HTTP/1.1 200 OK
+Accept: text/csv<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
 Allow: GET, POST, HEAD, OPTIONS
-Content-Type: text/csv; charset=utf-8</code>
-            <code class="csv">description,name,parses.0,parses.1,parses.2,renders.0,renders.1,renders.2
-,Publisher List,application/xml,application/json,text/csv,application/xml,application/json,text/csv</code>
+Content-Type: text/csv; charset=utf-8<!--
+         --></code>
+            <code class="csv"><!--
+-->description,name,parses.0,parses.1,parses.2,renders.0,renders.1,renders.2
+,Publisher List,application/xml,application/json,text/csv,application/xml,application/json,text/csv<!--
+         --></code>
           </div>
         </section>
       </section>
@@ -117,13 +135,18 @@ Content-Type: text/csv; charset=utf-8</code>
 
           <input type="radio" name="GET" id="GET-xml" checked />
           <div>
-            <code class="req http">GET /publishers HTTP/1.1
+            <code class="req http"><!--
+-->GET /publishers HTTP/1.1
 Host: waisvm-rfp1.ecs.soton.ac.uk
-Accept: application/xml</code>
-            <code class="resp http">HTTP/1.1 200 OK
+Accept: application/xml<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
 Allow: GET, POST, HEAD, OPTIONS
-Content-Type: application/xml; charset=utf-8</code>
-            <code class="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+Content-Type: application/xml; charset=utf-8<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;root&gt;
   &lt;list-item&gt;
     &lt;url&gt;http://waisvm-rfp1.ecs.soton.ac.uk/publishers/1&lt;/url&gt;
@@ -137,18 +160,24 @@ Content-Type: application/xml; charset=utf-8</code>
     &lt;location&gt;London, UK&lt;/location&gt;
     &lt;owner&gt;rfp1n11&lt;/owner&gt;
   &lt;/list-item&gt;
-&lt;/root&gt;</code>
+&lt;/root&gt;<!--
+         --></code>
           </div>
 
           <input type="radio" name="GET" id="GET-json" />
           <div>
-            <code class="req http">GET /publishers HTTP/1.1
+            <code class="req http"><!--
+-->GET /publishers HTTP/1.1
 Host: waisvm-rfp1.ecs.soton.ac.uk
-Accept: application/json</code>
-            <code class="resp http">HTTP/1.1 200 OK
+Accept: application/json<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
 Allow: GET, POST, HEAD, OPTIONS
-Content-Type: application/json</code>
-            <code class="json">[
+Content-Type: application/json<!--
+         --></code>
+            <code class="json"><!--
+-->[
     {
         "url"      : "http://waisvm-rfp1.ecs.soton.ac.uk/publishers/1",
         "name"     : "O'Reilly Media",
@@ -161,23 +190,129 @@ Content-Type: application/json</code>
         "location" : "London, UK",
         "owner"    : "rfp1n11"
     }
-]</code>
+]<!--
+         --></code>
           </div>
 
           <input type="radio" name="GET" id="GET-csv" />
           <div>
-            <code class="req http">GET /publishers HTTP/1.1
+            <code class="req http"><!--
+-->GET /publishers HTTP/1.1
 Host: waisvm-rfp1.ecs.soton.ac.uk
-Accept: text/csv</code>
-            <code class="resp http">HTTP/1.1 200 OK
+Accept: text/csv<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
 Allow: GET, POST, HEAD, OPTIONS
-Content-Type: text/csv; charset=utf-8</code>
-            <code class="csv">location,name,owner,url
+Content-Type: text/csv; charset=utf-8<!--
+         --></code>
+            <code class="csv"><!--
+-->location,name,owner,url
 "Sebastopol, CA",O'Reilly Media,rfp1n11,http://waisvm-rfp1.ecs.soton.ac.uk/publishers/1
-"London, UK",Visual Editions,rfp1n11,http://waisvm-rfp1.ecs.soton.ac.uk/publishers/2</code>
+"London, UK",Visual Editions,rfp1n11,http://waisvm-rfp1.ecs.soton.ac.uk/publishers/2<!--
+         --></code>
           </div>
         </section>
       </section>
+
+      <section id="POST">
+        <h3>POST</h3>
+
+        <section class="desc">
+          Adds a new <a href="publisher.html">publisher</a>.
+        </section>
+
+        <section class="eg">
+          <label for="POST-xml">XML</label>
+          <label for="POST-json">JSON</label>
+          <label for="POST-csv">CSV</label>
+
+          <input type="radio" name="POST" id="POST-xml" checked />
+          <div>
+            <code class="req http"><!--
+-->POST /publishers HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/xml
+Content-Type: application/xml
+Authorization: Token example<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;name&gt;Penguin Books Ltd&lt;/name&gt;
+&lt;/root&gt;<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, POST, HEAD, OPTIONS
+Content-Type: application/xml; charset=utf-8<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;url&gt;http://waisvm-rfp1.ecs.soton.ac.uk/publishers/1&lt;/url&gt;
+  &lt;name&gt;Penguin Books Ltd&lt;/name&gt;
+  &lt;location&gt;&lt;/location&gt;
+  &lt;owner&gt;rfp1n11&lt;/owner&gt;
+&lt;/root&gt;<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="POST" id="POST-json" />
+          <div>
+            <code class="req http"><!--
+-->POST /publishers HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/json
+Content-Type: application/json
+Authorization: Token example<!--
+         --></code>
+             <code class="json"><!--
+-->{
+    "name"     : "Penguin Books Ltd",
+}<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, POST, HEAD, OPTIONS
+Content-Type: application/json<!--
+         --></code>
+            <code class="json"><!--
+-->{
+    "url"      : "http://waisvm-rfp1.ecs.soton.ac.uk/publishers/1",
+    "name"     : "Penguin Books Ltd",
+    "location" : "",
+    "owner"    : "rfp1n11"
+}<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="POST" id="POST-csv" />
+          <div>
+            <code class="req http"><!--
+-->POST /publishers HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: text/csv
+Content-Type: text/csv
+Authorization: Token example<!--
+         --></code>
+             <code class="csv"><!--
+-->name
+Penguin Books Ltd<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, POST, HEAD, OPTIONS
+Content-Type: text/csv; charset=utf-8<!--
+         --></code>
+            <code class="csv"><!--
+-->location,name,owner,url
+,Penguin Books Ltd,rfp1n11,http://waisvm-rfp1.ecs.soton.ac.uk/publishers/1<!--
+         --></code>
+          </div>
+        </section>
+      </section>
+
     </main>
 
     <script src="highlight.pack.js"></script>
