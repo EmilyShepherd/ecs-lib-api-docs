@@ -9,7 +9,7 @@ html, body
 body > header
 {
 	height: 97px;
-	background: url('../../common/header_bg.gif');
+	background: url('header_bg.gif');
 }
 
 body > header img
