@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ECS Library API</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../../common/style.css" />
+  </head>
+
+  <body>
+    <header>
+      <img src="../../common/ecs_logo.gif" width="235" height="97" alt="University of Southampton, School of Electronics and Computer Science" />
+      <h1>ECS Library API</h1>
+    </header>
+
+    <main>
+      <h2>Loan Detail</h2>
+      <span class="uri">/loans/&lt;id&gt;</span>
+
+      <section class="params">
+        <h3>URI Parameters</h3>
+        <div class="param">
+          <span class="name">id</span>
+          <span class="type">integer</span>
+          <span class="desc">
+            The Identifier for the loan (this is provided implicitly via the loan's
+            url when accessing the <a href="loans.html">loans collection</a>).
+          </span>
+        </div>
+      </section>
+
+      <section class="resource">
+        <h3>Resource Properties</h3>
+        <div class="prop">
+          <span class="name">book</span>
+          <span class="type">URI</span>
+          <span class="desc">
+            Location of this loan's <a href="book.html">Book</a> object.
+          </span>
+        </div>
+
+        <div class="prop">
+          <span class="name">date_due</span>
+          <span class="type">rfc3339 DATE</span>
+          <span class="level">Read Only</span>
+          <span class="desc">
+            The date the book is due to be returned.
+          </span>
+        </div>
+
+        <div class="prop">
+          <span class="name">renewal</span>
+          <span class="type">boolean</span>
+          <span class="desc">
+            Has this loan been renewed or not?
+          </span>
+        </div>
+
+        <div class="prop">
+          <span class="name">late_fee</span>
+          <span class="type">decimal(2)</span>
+          <span class="level">Read Only</span>
+          <span class="desc">
+            The total fees incurred for late fines.
+          </span>
+        </div>
+
+        <div class="prop">
+          <span class="name">status</span>
+          <span class="type">ENUM[LOANED, OVERDUE, PAID]</span>
+          <span class="level">Read Only</span>
+          <span class="desc">
+            The status of this loan. When a loan is OVERDUE, it cannot be deleted. Instead,
+            the user must first make a <a href="payment">Payment</a> to switch the loan to
+            PAID.
+          </span>
+        </div>
+
+        <div class="prop">
+          <span class="name">owner</span>
+          <span class="type">ECSID</span>
+          <span class="level">Read Only</span>
+          <span class="desc">
+            The user who loaned the book - this person is able to
+            renew or return the loan, and is liable for any late fees.
+          </span>
+        </div>
+
+        <div class="prop">
+          <span class="name">url</span>
+          <span class="type">URI</span>
+          <span class="level">Read Only</span>
+          <span class="desc">
+            The location of this book resource on the server, including its ID.
+          </span>
+        </div>
+      </section>
+
+      <section id="OPTIONS">
+        <h3>OPTIONS</h3>
+
+        <section class="desc">
+          <p>Returns a human readable name and description of endpoint and the availiable site-wide response and request content
+          types: JSON, XML and CSV.</p>
+
+          <p class="warn">The description for this endpoint is blank.</p>
+        </section>
+
+        <section class="eg">
+          <label for="OPTIONS-xml">XML</label>
+          <label for="OPTIONS-json">JSON</label>
+          <label for="OPTIONS-csv">CSV</label>
+
+          <input type="radio" name="OPTIONS" id="OPTIONS-xml" checked />
+          <div>
+            <code class="req http"><!--
+-->OPTIONS /loans/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/xml<!--
+           --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PATCH, HEAD, OPTIONS
+Content-Type: application/xml; charset=utf-8<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;name&gt;Loan Detail&lt;/name&gt;
+  &lt;description&gt;&lt;/description&gt;
+  &lt;renders&gt;
+    &lt;list-item&gt;application/xml&lt;/list-item&gt;
+    &lt;list-item&gt;application/json&lt;/list-item&gt;
+    &lt;list-item&gt;text/csv&lt;/list-item&gt;
+  &lt;/renders&gt;
+  &lt;parses&gt;
+    &lt;list-item&gt;application/xml&lt;/list-item&gt;
+    &lt;list-item&gt;application/json&lt;/list-item&gt;
+    &lt;list-item&gt;text/csv&lt;/list-item&gt;
+  &lt;/parses&gt;
+&lt;/root&gt;<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="OPTIONS" id="OPTIONS-json" />
+          <div>
+            <code class="req http"><!--
+-->OPTIONS /loans/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/json<!--
+           --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PATCH, HEAD, OPTIONS
+Content-Type: application/json<!--
+           --></code>
+            <code class="json"><!--
+-->{
+    "name"        : "Loan Detail",
+    "description" : "",
+    "renders"     : [
+        "application/xml",
+        "application/json",
+        "text/csv"
+    ],
+    "parses"      : [
+        "application/xml",
+        "application/json",
+        "text/csv"
+      ]
+}<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="OPTIONS" id="OPTIONS-csv" />
+          <div>
+            <code class="req http"><!--
+-->OPTIONS /loans/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: text/csv
+<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PATCH, HEAD, OPTIONS
+Content-Type: text/csv; charset=utf-8<!--
+         --></code>
+            <code class="csv"><!--
+-->description,name,parses.0,parses.1,parses.2,renders.0,renders.1,renders.2
+,Loan Detail,application/xml,application/json,text/csv,application/xml,application/json,text/csv<!--
+         --></code>
+          </div>
+        </section>
+      </section>
+
+      <section id="GET">
+        <h3>GET</h3>
+
+        <section class="desc">
+          Returns the details of the specificed loan. In the case that the loan's status
+          is OVERDUE, the 
+        </section>
+
+        <section class="eg">
+          <label for="GET-xml">XML</label>
+          <label for="GET-json">JSON</label>
+          <label for="GET-csv">CSV</label>
+
+          <input type="radio" name="GET" id="GET-xml" checked />
+          <div>
+            <code class="req http"><!--
+-->GET /loans/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/xml<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PATCH, HEAD, OPTIONS, DELETE
+Content-Type: application/xml; charset=utf-8<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;url&gt;http://waisvm-rfp1.ecs.soton.ac.uk/loans/1&lt;/url&gt;
+  &lt;book&gt;http://waisvm-rfp1.ecs.soton.ac.uk/books/1&lt;/book&gt;
+  &lt;date_due&gt;2015-11-17&lt;/date_due&gt;
+  &lt;renewal&gt;false&lt;/renewal&gt;
+  &lt;status&gt;OVERDUE&lt;/status&gt;
+  &lt;late_fee&gt;2.10&lt;/late_fee&gt;
+  &lt;owner&gt;rfp1n11&lt;/owner&gt;
+  &lt;link rel="http://schema.waisvm-rfp1.ecs.soton.ac.uk/payment"&gt;http://waisvm-rfp1.ecs.soton.ac.uk/payments/loan/1&lt;/link&gt;
+&lt;/root&gt;<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="GET" id="GET-json" />
+          <div>
+            <code class="req http"><!--
+-->GET /loans/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/json<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PATCH, HEAD, OPTIONS, DELETE
+Content-Type: application/json<!--
+         --></code>
+            <code class="json"><!--
+-->{
+    "url"      : "http://waisvm-rfp1.ecs.soton.ac.uk/loans/1",
+    "book"     : "http://waisvm-rfp1.ecs.soton.ac.uk/books/1",
+    "date_due" : "2015-11-17",
+    "renewal"  : false,
+    "status"   : "OVERDUE",
+    "late_fee" : 2.10,
+    "owner"    : "rfp1n11",
+    "link"     :
+    {
+        "rel" : "http://schema.waisvm-rfp1.ecs.soton.ac.uk/payment",
+        "url" : "http://waisvm-rfp1.ecs.soton.ac.uk/payments/loan/1"
+    }
+}<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="GET" id="GET-csv" />
+          <div>
+            <code class="req http"><!--
+-->GET /loans/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: text/csv<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PATCH, HEAD, OPTIONS, DELETE
+Content-Type: text/csv; charset=utf-8<!--
+         --></code>
+            <code class="csv"><!--
+-->book,date_due,late_fee,link.rel,link.url,owner,renewal,status,url
+http://waisvm-rfp1.ecs.soton.ac.uk/books/1,2015-11-17,2.10,http://schema.waisvm-rfp1.ecs.soton.ac.uk/payment,http://waisvm-rfp1.ecs.soton.ac.uk/payments/loan/1,rfp1n11,false,OVERDUE,http://waisvm-rfp1.ecs.soton.ac.uk/loans/1<!--
+         --></code>
+          </div>
+        </section>
+      </section>
+ 
+      <section id="PATCH">
+        <h3>PATCH</h3>
+
+        <section class="desc">
+          Used to renew a loan. This is only acceptable if the loan has not already been renewed.
+        </section>
+
+        <section class="eg">
+          <label for="PATCH-xml">XML</label>
+          <label for="PATCH-json">JSON</label>
+          <label for="PATCH-csv">CSV</label>
+
+          <input type="radio" name="PATCH" id="PATCH-xml" checked />
+          <div>
+            <code class="req http"><!--
+-->PATCH /loans/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/xml
+Content-Type: application/xml
+Authorization: Token example<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;renewal&gt;true&lt;/renewal&gt;
+&lt;/root&gt;<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PATCH, HEAD, OPTIONS, DELETE
+Content-Type: application/xml; charset=utf-8<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;url&gt;http://waisvm-rfp1.ecs.soton.ac.uk/loans/1&lt;/url&gt;
+  &lt;book&gt;http://waisvm-rfp1.ecs.soton.ac.uk/books/1&lt;/book&gt;
+  &lt;date_due&gt;2015-11-24&lt;/date_due&gt;
+  &lt;renewal&gt;true&lt;/renewal&gt;
+  &lt;status&gt;LOANED&lt;/status&gt;
+  &lt;late_fee&gt;0.00&lt;/late_fee&gt;
+  &lt;owner&gt;rfp1n11&lt;/owner&gt;
+&lt;/root&gt;<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="PATCH" id="PATCH-json" />
+          <div>
+            <code class="req http"><!--
+-->PATCH /loans/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/json
+Content-Type: application/json
+Authorization: Token example<!--
+         --></code>
+             <code class="json"><!--
+-->{
+    "renewal" : true
+}<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PATCH, HEAD, OPTIONS, DELETE
+Content-Type: application/json<!--
+         --></code>
+            <code class="json"><!--
+-->{
+    "url"      : "http://waisvm-rfp1.ecs.soton.ac.uk/loans/1",
+    "book"     : "http://waisvm-rfp1.ecs.soton.ac.uk/books/1",
+    "date_due" : "2015-11-24",
+    "renewal"  : true,
+    "status"   : "LOANED",
+    "late_fee" : 0.00,
+    "owner"    : "rfp1n11"
+}<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="PATCH" id="PATCH-csv" />
+          <div>
+            <code class="req http"><!--
+-->PATCH /loans/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: text/csv
+Content-Type: text/csv
+Authorization: Token example<!--
+         --></code>
+             <code class="csv"><!--
+-->renewal
+true<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PATCH, HEAD, OPTIONS, DELETE
+Content-Type: text/csv; charset=utf-8<!--
+         --></code>
+            <code class="csv"><!--
+-->book,date_due,late_fee,owner,renewal,status,url
+http://waisvm-rfp1.ecs.soton.ac.uk/books/1,2015-11-24,0.0,rfp1n11,true,RENEWED,http://waisvm-rfp1.ecs.soton.ac.uk/loans/1<!--
+         --></code>
+          </div>
+        </section>
+      </section>
+
+      <section id="DELETE">
+        <h3>DELETE</h3>
+
+        <section class="desc">
+          Deletes the given loan (used to return a book). This is only acceptable
+          if the loan's status is either LOANED or PAID. In the case that the status is
+          OVERDUE, this method will return 405 and redirect the client to the payment
+          endpoint.
+        </section>
+
+        <h4>Successful Return</h4>
+        <section class="eg">
+          <div class="onlyOption">
+            <code class="req http"><!--
+-->DELETE /loans/1 HTTP/1.1
+Authorization: Token example
+Host: waisvm-rfp1.ecs.soton.ac.uk<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 204 NO CONTENT
+Allow: GET, HEAD, OPTIONS<!--
+         --></code>
+          </div>
+        </section>
+
+        <h4>Unsuccessful Return</h4>
+        <section class="eg">
+          <label for="DELETE-xml">XML</label>
+          <label for="DELETE-json">JSON</label>
+          <label for="DELETE-csv">CSV</label>
+
+          <input type="radio" name="DELETE" id="DELETE-xml" checked />
+          <div>
+            <code class="req http"><!--
+-->DELETE /loans/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/xml
+Authorization: Token example<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PATCH, HEAD, OPTIONS
+Content-Type: application/xml; charset=utf-8<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;detail&gt;There are outstanding fines for this loan&lt;/detail&gt;
+  &lt;late_fee&gt;2.10&tl;/late_fee&gt;
+  &lt;link rel="http://schema.waisvm-rfp1.ecs.soton.ac.uk/payment"&gt;http://waisvm-rfp1.ecs.soton.ac.uk/payments/loan/1&lt;/link&gt;
+&lt;/root&gt;<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="DELETE" id="DELETE-json" />
+          <div>
+            <code class="req http"><!--
+-->DELETE /loans/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/json
+Authorization: Token example<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PATCH, HEAD, OPTIONS
+Content-Type: application/json<!--
+         --></code>
+            <code class="json"><!--
+-->{
+    "detail"   : "There are outstanding fines for this loan",
+    "late_fee" : 2.10,
+    "link"     :
+    {
+        "rel" : "http://schema.waisvm-rfp1.ecs.soton.ac.uk/payment",
+        "url" : "http://waisvm-rfp1.ecs.soton.ac.uk/payments/loan/1"
+    }
+}<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="DELETE" id="DELETE-csv" />
+          <div>
+            <code class="req http"><!--
+-->DELETE /loans/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: text/csv
+Authorization: Token example<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PATCH, HEAD, OPTIONS
+Content-Type: text/csv; charset=utf-8<!--
+         --></code>
+            <code class="csv"><!--
+-->detail,late_fee,link.rel,link.url
+There are outstanding fines for this loan,2.10,http://schema.waisvm-rfp1.ecs.soton.ac.uk/payment,http://waisvm-rfp1.ecs.soton.ac.uk/payments/loan/1<!--
+         --></code>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="../../common/highlight.pack.js"></script>
+    <script>
+      var els = document.getElementsByTagName('code');
+      for (var i = 0; i < els.length; i++)
+      {
+          if (els[i].className === "csv")
+          {
+              els[i].innerHTML =
+                  els[i].innerHTML.replace(/(?:\r\n|\r|\n)/g, "<span class=\"crlf\"><span>&#x21A9;</span></span>\r\n");
+          }
+          else
+          {
+              hljs.highlightBlock(els[i]);
+          }
+      }
+    </script>
+  </body>
+</html>

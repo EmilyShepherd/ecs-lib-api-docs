@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ECS Library API</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../../common/style.css" />
+  </head>
+
+  <body>
+    <header>
+      <img src="../../common/ecs_logo.gif" width="235" height="97" alt="University of Southampton, School of Electronics and Computer Science" />
+      <h1>ECS Library API</h1>
+    </header>
+
+    <main>
+      <h2>Loan List</h2>
+      <span class="uri">/loans</span>
+
+      <p class="params"></p>
+
+      <section class="desc">
+        This resource is a collection of <a href="loan.html">Loan</a> objects. New objects may be POSTed, however the
+        list cannot be directly modified or replaced. If changes, deletions or replacements are required, these must be done on
+        a per-loan basis.
+      </section>
+
+      <section id="OPTIONS">
+        <h3>OPTIONS</h3>
+
+        <section class="desc">
+          <p>Returns a human readable name and description of endpoint and the availiable site-wide response and request content
+          types: JSON, XML and CSV.</p>
+
+          <p class="warn">The description for this endpoint is blank.</p>
+        </section>
+
+        <section class="eg">
+          <label for="OPTIONS-xml">XML</label>
+          <label for="OPTIONS-json">JSON</label>
+          <label for="OPTIONS-csv">CSV</label>
+
+          <input type="radio" name="OPTIONS" id="OPTIONS-xml" checked />
+          <div>
+            <code class="req http"><!--
+-->OPTIONS /loans HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/xml<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, POST, HEAD, OPTIONS
+Content-Type: application/xml; charset=utf-8<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;name&gt;Loan List&lt;/name&gt;
+  &lt;description&gt;&lt;/description&gt;
+  &lt;renders&gt;
+    &lt;list-item&gt;application/xml&lt;/list-item&gt;
+    &lt;list-item&gt;application/json&lt;/list-item&gt;
+    &lt;list-item&gt;text/csv&lt;/list-item&gt;
+  &lt;/renders&gt;
+  &lt;parses&gt;
+    &lt;list-item&gt;application/xml&lt;/list-item&gt;
+    &lt;list-item&gt;application/json&lt;/list-item&gt;
+    &lt;list-item&gt;text/csv&lt;/list-item&gt;
+  &lt;/parses&gt;
+&lt;/root&gt;<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="OPTIONS" id="OPTIONS-json" />
+          <div>
+            <code class="req http"><!--
+-->OPTIONS /loans HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/json<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, POST, HEAD, OPTIONS
+Content-Type: application/json<!--
+         --></code>
+            <code class="json"><!--
+-->{
+    "name"        : "Loan List",
+    "description" : "",
+    "renders"     : [
+        "application/xml",
+        "application/json",
+        "text/csv"
+    ],
+    "parses"      : [
+        "application/xml",
+        "application/json",
+        "text/csv"
+      ]
+}<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="OPTIONS" id="OPTIONS-csv" />
+          <div>
+            <code class="req http"><!--
+-->OPTIONS /loans HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: text/csv<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, POST, HEAD, OPTIONS
+Content-Type: text/csv; charset=utf-8<!--
+         --></code>
+            <code class="csv"><!--
+-->description,name,parses.0,parses.1,parses.2,renders.0,renders.1,renders.2
+,Loan List,application/xml,application/json,text/csv,application/xml,application/json,text/csv<!--
+         --></code>
+          </div>
+        </section>
+      </section>
+
+      <section id="GET">
+        <h3>GET</h3>
+
+        <section class="desc">
+          Returns the list of <a href="loan.html">loans</a> in the database.
+        </section>
+
+        <section class="eg">
+          <label for="GET-xml">XML</label>
+          <label for="GET-json">JSON</label>
+          <label for="GET-csv">CSV</label>
+
+          <input type="radio" name="GET" id="GET-xml" checked />
+          <div>
+            <code class="req http"><!--
+-->GET /loans HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/xml<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, POST, HEAD, OPTIONS
+Content-Type: application/xml; charset=utf-8<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;list-item&gt;
+    &lt;url&gt;http://waisvm-rfp1.ecs.soton.ac.uk/loans/1&lt;/url&gt;
+    &lt;book&gt;http://waisvm-rfp1.ecs.soton.ac.uk/books/1&lt;/book&gt;
+    &lt;date_due&gt;2015-11-17&lt;/date_due&gt;
+    &lt;renewal&gt;false&lt;/renewal&gt;
+    &lt;status&gt;OVERDUE&lt;/status&gt;
+    &lt;late_fee&gt;2.10&lt;/late_fee&gt;
+    &lt;owner&gt;rfp1n11&lt;/owner&gt;
+    &lt;link rel="http://schema.waisvm-rfp1.ecs.soton.ac.uk/payment"&gt;http://waisvm-rfp1.ecs.soton.ac.uk/payments/loan/1&lt;/link&gt;
+  &lt;/list-item&gt;
+  &lt;list-item&gt;
+    &lt;url&gt;http://waisvm-rfp1.ecs.soton.ac.uk/loans/2&lt;/url&gt;
+    &lt;book&gt;http://waisvm-rfp1.ecs.soton.ac.uk/books/3&lt;/book&gt;
+    &lt;date_due&gt;2015-11-26&lt;/date_due&gt;
+    &lt;renewal&gt;true&lt;/renewal&gt;
+    &lt;status&gt;LOANED&lt;/status&gt;
+    &lt;late_fee&gt;0.00&lt;/late_fee&gt;
+    &lt;owner&gt;rfp1n11&lt;/owner&gt;
+  &lt;/list-item&gt;
+&lt;/root&gt;<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="GET" id="GET-json" />
+          <div>
+            <code class="req http"><!--
+-->GET /loans HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/json<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, POST, HEAD, OPTIONS
+Content-Type: application/json<!--
+         --></code>
+            <code class="json"><!--
+-->[
+    {
+        "url"      : "http://waisvm-rfp1.ecs.soton.ac.uk/loans/1",
+        "book"     : "http://waisvm-rfp1.ecs.soton.ac.uk/books/1",
+        "date_due" : "2015-11-17",
+        "renewal"  : false,
+        "status"   : "OVERDUE",
+        "late_fee" : 2.10,
+        "owner"    : "rfp1n11",
+        "link"     :
+        {
+            "rel" : "http://schema.waisvm-rfp1.ecs.soton.ac.uk/payment",
+            "url" : "http://waisvm-rfp1.ecs.soton.ac.uk/payments/loan/1"
+        }
+    },
+    {
+        "url"      : "http://waisvm-rfp1.ecs.soton.ac.uk/loans/2",
+        "book"     : "http://waisvm-rfp1.ecs.soton.ac.uk/books/3",
+        "date_due" : "2015-11-26",
+        "renewal"  : true,
+        "status"   : "LOANED",
+        "late_fee" : 0.00,
+        "owner"    : "rfp1n11"
+    }
+]<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="GET" id="GET-csv" />
+          <div>
+            <code class="req http"><!--
+-->GET /loans HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: text/csv<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, POST, HEAD, OPTIONS
+Content-Type: text/csv; charset=utf-8<!--
+         --></code>
+            <code class="csv"><!--
+-->book,date_due,late_fee,link.rel,link.url,owner,renewal,status,url
+http://waisvm-rfp1.ecs.soton.ac.uk/books/1,2015-11-17,2.10,http://schema.waisvm-rfp1.ecs.soton.ac.uk/payment,http://waisvm-rfp1.ecs.soton.ac.uk/payments/loan/1,rfp1n11,false,OVERDUE,http://waisvm-rfp1.ecs.soton.ac.uk/loans/1
+http://waisvm-rfp1.ecs.soton.ac.uk/books/3,2015-11-26,0.00,,,,rfp1n11,true,LOANED,http://waisvm-rfp1.ecs.soton.ac.uk/loans/2<!--
+         --></code>
+          </div>
+        </section>
+      </section>
+
+      <section id="POST">
+        <h3>POST</h3>
+
+        <section class="desc">
+          Requests a new <a href="loan.html">loan</a>. The system first checks for the following:
+          <ul>
+            <li>Of the loans in the user's name, do any have the OVERDUE status?</li>
+            <li>Does the user have 10 or more loans?</li>
+          </ul>
+
+          If either of those are true, the system responds with a 405 error.
+        </section>
+
+        <section class="eg">
+          <label for="POST-xml">XML</label>
+          <label for="POST-json">JSON</label>
+          <label for="POST-csv">CSV</label>
+
+          <input type="radio" name="POST" id="POST-xml" checked />
+          <div>
+            <code class="req http"><!--
+-->POST /loans HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/xml
+Content-Type: application/xml
+Authorization: Token example<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;book&gt;http://waisvm-rfp1.ecs.soton.ac.uk/books/6&lt;/book&gt;
+&lt;/root&gt;<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, POST, HEAD, OPTIONS
+Content-Type: application/xml; charset=utf-8
+Date: Mon, 16 Nov 2015 17:01:35 GMT<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;url&gt;http://waisvm-rfp1.ecs.soton.ac.uk/loans/3&lt;/url&gt;
+  &lt;book&gt;http://waisvm-rfp1.ecs.soton.ac.uk/books/6&lt;/book&gt;
+  &lt;date_due&gt;2015-11-30&lt;/date_due&gt;
+  &lt;renewal&gt;false&lt;/renewal&gt;
+  &lt;status&gt;LOANED&lt;/status&gt;
+  &lt;late_fee&gt;0.00&lt;/late_fee&gt;
+  &lt;owner&gt;rfp1n11&lt;/owner&gt;
+&lt;/root&gt;<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="POST" id="POST-json" />
+          <div>
+            <code class="req http"><!--
+-->POST /loans HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/json
+Content-Type: application/json
+Authorization: Token example<!--
+         --></code>
+             <code class="json"><!--
+-->{
+    "book" : "http://waisvm-rfp1.ecs.soton.ac.uk/books/6"
+}<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, POST, HEAD, OPTIONS
+Content-Type: application/json
+Date: Mon, 16 Nov 2015 17:01:35 GMT<!--
+         --></code>
+            <code class="json"><!--
+-->{
+    "url"      : "http://waisvm-rfp1.ecs.soton.ac.uk/loans/3",
+    "book"     : "http://waisvm-rfp1.ecs.soton.ac.uk/books/6",
+    "date_due" : "2015-11-30",
+    "renewal"  : false,
+    "status"   : "LOANED",
+    "late_fee" : 0.00,
+    "owner"    : "rfp1n11"
+}<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="POST" id="POST-csv" />
+          <div>
+            <code class="req http"><!--
+-->POST /loans HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: text/csv
+Content-Type: text/csv
+Authorization: Token example<!--
+         --></code>
+             <code class="csv"><!--
+-->book
+http://waisvm-rfp1.ecs.soton.ac.uk/books/6<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, POST, HEAD, OPTIONS
+Content-Type: text/csv; charset=utf-8
+Date: Mon, 16 Nov 2015 17:01:35 GMT<!--
+         --></code>
+            <code class="csv"><!--
+-->book,date_due,late_fee,owner,renewal,status,url
+http://waisvm-rfp1.ecs.soton.ac.uk/books/6,2015-11-30,0.00,rfp1n11,false,LOANED,http://waisvm-rfp1.ecs.soton.ac.uk/loans/3<!--
+         --></code>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="../../common/highlight.pack.js"></script>
+    <script>
+      var els = document.getElementsByTagName('code');
+      for (var i = 0; i < els.length; i++)
+      {
+          if (els[i].className === "csv")
+          {
+              els[i].innerHTML =
+                  els[i].innerHTML.replace(/(?:\r\n|\r|\n)/g, "<span class=\"crlf\"><span>&#x21A9;</span></span>\r\n");
+          }
+          else
+          {
+              hljs.highlightBlock(els[i]);
+          }
+      }
+    </script>
+  </body>
+</html>
