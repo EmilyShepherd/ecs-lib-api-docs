@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ECS Library API</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../../common/style.css" />
+  </head>
+
+  <body>
+    <header>
+      <img src="../../common/ecs_logo.gif" width="235" height="97" alt="University of Southampton, School of Electronics and Computer Science" />
+      <h1>ECS Library API</h1>
+    </header>
+
+    <main>
+      <h2>Payment Detail</h2>
+      <span class="uri">/payments/loan/&lt;id&gt;</span>
+
+      <section class="params">
+        <h3>URI Parameters</h3>
+        <div class="param">
+          <span class="name">id</span>
+          <span class="type">integer</span>
+          <span class="desc">
+            The Identifier for the loan this payment is for (this is provided
+            implicitly via the loan's url when accessing the <a href="loan.html">loan collection</a>).
+          </span>
+        </div>
+      </section>
+
+      <section class="resource">
+        <h3>Resource Properties</h3>
+        <div class="prop">
+          <span class="name">payee_name</span>
+          <span class="type">string</span>
+          <span class="desc">
+            The name of the Card Holder
+          </span>
+        </div>
+
+        <div class="prop">
+          <span class="name">card_number</span>
+          <span class="type">integer</span>
+          <span class="desc">
+            The card number used for the payment
+          </span>
+        </div>
+
+        <div class="prop">
+          <span class="name">date_paid</span>
+          <span class="type">rfc3339 DATE</span>
+          <span class="level">Read Only</span>
+          <span class="desc">
+            The date the payment was made
+          </span>
+        </div>
+
+        <div class="prop">
+          <span class="name">loan</span>
+          <span class="type">URI</span>
+          <span class="level">Read Only</span>
+          <span class="desc">
+            Location of the <a href="loan.html">Loan</a> this payment is for.
+          </span>
+        </div>
+
+        <div class="prop">
+          <span class="name">owner</span>
+          <span class="type">ECSID</span>
+          <span class="level">Read Only</span>
+          <span class="desc">
+            The user who created and owns the resource. Only this user may delete or modify the payment.
+          </span>
+        </div>
+
+        <div class="prop">
+          <span class="name">url</span>
+          <span class="type">URI</span>
+          <span class="level">Read Only</span>
+          <span class="desc">
+            The location of this payment resource on the server, including its ID.
+          </span>
+        </div>
+      </section>
+
+      <section id="OPTIONS">
+        <h3>OPTIONS</h3>
+
+        <section class="desc">
+          <p>Returns a human readable name and description of endpoint and the availiable site-wide response and request content
+          types: JSON, XML and CSV.</p>
+
+          <p class="warn">The description for this endpoint is blank.</p>
+        </section>
+
+        <section class="eg">
+          <label for="OPTIONS-xml">XML</label>
+          <label for="OPTIONS-json">JSON</label>
+          <label for="OPTIONS-csv">CSV</label>
+
+          <input type="radio" name="OPTIONS" id="OPTIONS-xml" checked />
+          <div>
+            <code class="req http"><!--
+-->OPTIONS /payments/loan/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/xml<!--
+           --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, HEAD, OPTIONS
+Content-Type: application/xml; charset=utf-8<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;name&gt;Payment Detail&lt;/name&gt;
+  &lt;description&gt;&lt;/description&gt;
+  &lt;renders&gt;
+    &lt;list-item&gt;application/xml&lt;/list-item&gt;
+    &lt;list-item&gt;application/json&lt;/list-item&gt;
+    &lt;list-item&gt;text/csv&lt;/list-item&gt;
+  &lt;/renders&gt;
+  &lt;parses&gt;
+    &lt;list-item&gt;application/xml&lt;/list-item&gt;
+    &lt;list-item&gt;application/json&lt;/list-item&gt;
+    &lt;list-item&gt;text/csv&lt;/list-item&gt;
+  &lt;/parses&gt;
+&lt;/root&gt;<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="OPTIONS" id="OPTIONS-json" />
+          <div>
+            <code class="req http"><!--
+-->OPTIONS /payments/loan/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/json<!--
+           --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, HEAD, OPTIONS
+Content-Type: application/json<!--
+           --></code>
+            <code class="json"><!--
+-->{
+    "name"        : "Payment Detail",
+    "description" : "",
+    "renders"     : [
+        "application/xml",
+        "application/json",
+        "text/csv"
+    ],
+    "parses"      : [
+        "application/xml",
+        "application/json",
+        "text/csv"
+      ]
+}<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="OPTIONS" id="OPTIONS-csv" />
+          <div>
+            <code class="req http"><!--
+-->OPTIONS /payments/loan/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: text/csv
+<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, HEAD, OPTIONS
+Content-Type: text/csv; charset=utf-8<!--
+         --></code>
+            <code class="csv"><!--
+-->description,name,parses.0,parses.1,parses.2,renders.0,renders.1,renders.2
+,Payment Detail,application/xml,application/json,text/csv,application/xml,application/json,text/csv<!--
+         --></code>
+          </div>
+        </section>
+      </section>
+
+      <section id="GET">
+        <h3>GET</h3>
+
+        <section class="desc">
+          Returns the the specificed payment details.
+        </section>
+
+        <section class="eg">
+          <label for="GET-xml">XML</label>
+          <label for="GET-json">JSON</label>
+          <label for="GET-csv">CSV</label>
+
+          <input type="radio" name="GET" id="GET-xml" checked />
+          <div>
+            <code class="req http"><!--
+-->GET /payments/loan/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/xml<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, HEAD, OPTIONS
+Content-Type: application/xml; charset=utf-8<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;url&gt;http://waisvm-rfp1.ecs.soton.ac.uk/payments/loan/1&lt;/url&gt;
+  &lt;payee_name&gt;MR R PRINCE&lt;/payee_name&gt;
+  &lt;card_number&gt;1234123412341234&lt;/card_number&gt;
+  &lt;date_paid&gt;2000-10-02&lt;/date_paid&gt;
+  &lt;loan&gt;http://waisvm-rfp1.ecs.soton.ac.uk/loans/1&lt;/loan&gt;
+  &lt;owner&gt;rfp1n11&lt;/owner&gt;
+&lt;/root&gt;<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="GET" id="GET-json" />
+          <div>
+            <code class="req http"><!--
+-->GET /payments/loan/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/json<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, HEAD, OPTIONS
+Content-Type: application/json<!--
+         --></code>
+            <code class="json"><!--
+-->{
+    "url"         : "http://waisvm-rfp1.ecs.soton.ac.uk/payments/loan/1",
+    "payee_name"  : "MR R PRINCE",
+    "card_number" : 1234123412341234,
+    "date_paid"   : "2000-10-02",
+    "loan"        : "http://waisvm-rfp1.ecs.soton.ac.uk/loans/1",
+    "owner"       : "rfp1n11"
+}<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="GET" id="GET-csv" />
+          <div>
+            <code class="req http"><!--
+-->GET /payments/loan/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: text/csv<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, HEAD, OPTIONS
+Content-Type: text/csv; charset=utf-8<!--
+         --></code>
+            <code class="csv"><!--
+-->card_number,date_paid,loan,owner,payee_name,url
+1234123412341234,2000-10-02,http://waisvm-rfp1.ecs.soton.ac.uk/loans/1,rfp1n11,MR R PRINCE,http://waisvm-rfp1.ecs.soton.ac.uk/payments/loan/1<!--
+         --></code>
+          </div>
+        </section>
+      </section>
+
+      <section id="PUT">
+        <h3>PUT</h3>
+
+        <section class="desc">
+          Creates a payment resource at the given endpoint (this can only
+          be used for creations. PUT requests on resources which already
+          exist will return 405).
+        </section>
+
+        <section class="eg">
+          <label for="PUT-xml">XML</label>
+          <label for="PUT-json">JSON</label>
+          <label for="PUT-csv">CSV</label>
+
+          <input type="radio" name="PUT" id="PUT-xml" checked />
+          <div>
+            <code class="req http"><!--
+-->PUT /payments/loan/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/xml
+Content-Type: application/xml
+Authorization: Token example<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;payee_name&gt;MR R PRINCE&lt;/payee_name&gt;
+  &lt;card_number&gt;1234123412341234&lt;/card_number&gt;
+&lt;/root&gt;<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, HEAD, OPTIONS
+Content-Type: application/xml; charset=utf-8
+Date: Mon, 02 Oct 2000 17:01:35 GMT<!--
+         --></code>
+            <code class="xml"><!--
+-->&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;root&gt;
+  &lt;url&gt;http://waisvm-rfp1.ecs.soton.ac.uk/payments/loan/1&lt;/url&gt;
+  &lt;payee_name&gt;MR R PRINCE&lt;/payee_name&gt;
+  &lt;card_number&gt;1234123412341234&lt;/card_number&gt;
+  &lt;date_paid&gt;2000-10-02&lt;/date_paid&gt;
+  &lt;loan&gt;http://waisvm-rfp1.ecs.soton.ac.uk/loans/1&lt;/loan&gt;
+  &lt;owner&gt;rfp1n11&lt;/owner&gt;
+&lt;/root&gt;<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="PUT" id="PUT-json" />
+          <div>
+            <code class="req http"><!--
+-->PUT /payments/loan/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: application/json
+Content-Type: application/json
+Authorization: Token example<!--
+         --></code>
+             <code class="json"><!--
+-->{
+    "payee_name"  : "MR R PRINCE",
+    "card_number" : 1234123412341234,
+}<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, HEAD, OPTIONS
+Content-Type: application/json
+Date: Mon, 02 Oct 2000 17:01:35 GMT<!--
+         --></code>
+            <code class="json"><!--
+-->{
+    "url"         : "http://waisvm-rfp1.ecs.soton.ac.uk/payments/loan/1",
+    "payee_name"  : "MR R PRINCE",
+    "card_number" : 1234123412341234,
+    "date_paid"   : "2000-10-02",
+    "loan"        : "http://waisvm-rfp1.ecs.soton.ac.uk/loans/1",
+    "owner"       : "rfp1n11"
+}<!--
+         --></code>
+          </div>
+
+          <input type="radio" name="PUT" id="PUT-csv" />
+          <div>
+            <code class="req http"><!--
+-->PUT /payments/loan/1 HTTP/1.1
+Host: waisvm-rfp1.ecs.soton.ac.uk
+Accept: text/csv
+Content-Type: text/csv
+Authorization: Token example<!--
+         --></code>
+             <code class="csv"><!--
+-->card_number,payee_name
+1234123412341234,MR R PRINCE<!--
+         --></code>
+            <code class="resp http"><!--
+-->HTTP/1.1 200 OK
+Allow: GET, PUT, HEAD, OPTIONS
+Content-Type: text/csv; charset=utf-8
+Date: Mon, 02 Oct 2000 17:01:35 GMT<!--
+         --></code>
+            <code class="csv"><!--
+-->card_number,date_paid,loan,owner,payee_name,url
+1234123412341234,2000-10-02,http://waisvm-rfp1.ecs.soton.ac.uk/loans/1,rfp1n11,MR R PRINCE,http://waisvm-rfp1.ecs.soton.ac.uk/payments/loan/1<!--
+         --></code>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="../../common/highlight.pack.js"></script>
+    <script>
+      var els = document.getElementsByTagName('code');
+      for (var i = 0; i < els.length; i++)
+      {
+          if (els[i].className === "csv")
+          {
+              els[i].innerHTML =
+                  els[i].innerHTML.replace(/(?:\r\n|\r|\n)/g, "<span class=\"crlf\"><span>&#x21A9;</span></span>\r\n");
+          }
+          else
+          {
+              hljs.highlightBlock(els[i]);
+          }
+      }
+    </script>
+  </body>
+</html>
